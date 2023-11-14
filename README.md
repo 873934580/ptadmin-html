@@ -1,5 +1,7 @@
-### 使用方式
+### 安装
+> composer require ptadmin/html -vvv
 
+### 使用方式
 ```php
     use PTAdmin\Html;
     
@@ -38,4 +40,5 @@
     Html::tag($name, string $content = '', array $options = [])
 ```
 
-
+### License
+> MIT
