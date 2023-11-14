@@ -1,7 +1,7 @@
 ### 使用方式
 
 ```php
-    use Zane\Html;
+    use PTAdmin\Html;
     
     # 预设html   
     # 图片渲染
