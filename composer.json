@@ -16,5 +16,8 @@
             "name": "Zane",
             "email": "873934580@qq.com"
         }
-    ]
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    }
 }
