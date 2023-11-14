@@ -1,0 +1,20 @@
+{
+    "name": "ptadmin/html",
+    "description": "简易使用php生成html标签的方法",
+    "license": "MIT",
+    "keywords": ["HTML"],
+    "require": {
+        "php": "^7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "PTAdmin\\Html\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Zane",
+            "email": "873934580@qq.com"
+        }
+    ]
+}
