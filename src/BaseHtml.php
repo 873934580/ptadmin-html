@@ -12,12 +12,16 @@ class BaseHtml
     private $options = [];
     private $content = '';
     private $name;
-    
+
+    /**
+     * 无结束标签的元素.
+     * @var array
+     */
     private static $voidElements = [
         'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen',
         'link', 'meta', 'param', 'source', 'track', 'wbr', 'input',
     ];
-    
+
     /**
      * 设置选择 完全覆盖内容.
      *
@@ -28,10 +32,10 @@ class BaseHtml
     public function setOptions(array $options = []): self
     {
         $this->options = $options;
-        
+
         return $this;
     }
-    
+
     /**
      * 使用键值对的方式添加选项，会覆盖已存在的数据.
      *
@@ -43,10 +47,10 @@ class BaseHtml
     public function addOption($key, $val): self
     {
         $this->options[$key] = $val;
-        
+
         return $this;
     }
-    
+
     /**
      * 设置内容.
      *
@@ -57,44 +61,44 @@ class BaseHtml
     public function setContent($content): self
     {
         $this->content = $content;
-        
+
         return $this;
     }
-    
+
     public function getOptions(): array
     {
         return $this->options;
     }
-    
+
     public function getContent(): string
     {
         return $this->content;
     }
-    
+
     public function getName()
     {
         return $this->name;
     }
-    
+
     public function setName($name): void
     {
         $this->name = $name;
     }
-    
+
     public function render(): string
     {
         if (null === $this->getName() || false === $this->getName()) {
             return $this->getContent();
         }
-        
+
         return $this->tag($this->getName(), $this->getContent(), $this->getOptions());
     }
-    
+
     public static function view($name, string $content = '', array $options = []): string
     {
         return (new static())->tag($name, $content, $options);
     }
-    
+
     /**
      * html生成.
      *
@@ -109,8 +113,8 @@ class BaseHtml
         $closeTag = '';
         !isset(static::$voidElements[strtolower($name)]) && $closeTag = '/';
         $html = "<{$name} ".Attributes::render($options)." {$closeTag}>";
-        
+
         return '' === $closeTag ? $html.$content : "{$html} {$content}</{$name}>";
     }
-    
+
 }

@@ -17,7 +17,7 @@ class Attributes
      * @var string[]
      */
     private $dataAttributes = ['data', 'data-ng', 'ng'];
-    
+
     /**
      * 标签排序.
      *
@@ -30,25 +30,25 @@ class Attributes
         'size', 'maxlength', 'width', 'height', 'rows', 'cols',
         'alt', 'title', 'rel', 'media',
     ];
-    
+
     private $attributes;
     private $content = [];
-    
+
     private function __construct($attributes)
     {
         $this->attributes = $attributes;
     }
-    
+
     public static function render(array $attributes): string
     {
         if (!$attributes) {
             return '';
         }
         $render = new static($attributes);
-        
+
         return $render->order()->action()->getContent();
     }
-    
+
     /**
      * 返回渲染后的内容.
      *
@@ -56,9 +56,9 @@ class Attributes
      */
     private function getContent(): string
     {
-        return implode('', $this->content);
+        return implode(' ', $this->content);
     }
-    
+
     /**
      * 执行渲染.
      */
@@ -74,12 +74,12 @@ class Attributes
             if ($this->arrayRender($val, $name)) {
                 continue;
             }
-            $this->content[] = " {$name}=\"".EncodeDecode::decode($val).'"';
+            $this->content[] = "{$name}=\"".EncodeDecode::decode($val).'"';
         }
-        
+
         return $this;
     }
-    
+
     /**
      * 数组渲染.
      *
@@ -94,25 +94,25 @@ class Attributes
             return false;
         }
         if ('class' === $name) {
-            $this->content[] = " {$name}=\"".EncodeDecode::encode(implode(' ', $attributes)).'"';
-            
+            $this->content[] = "{$name}=\"".EncodeDecode::encode(implode(' ', $attributes)).'"';
+
             return true;
         }
         if ('style' === $name) {
-            $this->content[] = " {$name}=\"".EncodeDecode::encode(CssFormat::render($attributes)).'"';
-            
+            $this->content[] = "{$name}=\"".EncodeDecode::encode(CssFormat::render($attributes)).'"';
+
             return true;
         }
         if (\in_array($name, $this->dataAttributes, true)) {
             $this->dataArrayRender($attributes, $name);
-            
+
             return true;
         }
-        $this->content[] = " {$name}=\"".@json_encode($attributes).'"';
-        
+        $this->content[] = "{$name}=\"".@json_encode($attributes).'"';
+
         return true;
     }
-    
+
     /**
      * 数据格式渲染.
      *
@@ -123,15 +123,15 @@ class Attributes
     {
         foreach ($attributes as $key => $val) {
             if (\is_bool($val)) {
-                $this->content[] = " {$name}-{$key}";
-                
+                $this->content[] = "{$name}-{$key}";
+
                 continue;
             }
             $val = \is_array($val) ? json_encode($val) : EncodeDecode::encode($val);
-            $this->content[] = " {$name}-{$key}=\"".$val.'"';
+            $this->content[] = "{$name}-{$key}=\"".$val.'"';
         }
     }
-    
+
     /**
      * 布尔属性渲染. 属性值为false的情况下 不做处理.
      *
@@ -145,12 +145,12 @@ class Attributes
             return false;
         }
         if ($val) {
-            $this->content[] = " {$name}";
+            $this->content[] = "{$name}";
         }
-        
+
         return true;
     }
-    
+
     /**
      * 属性排序输出.
      */
@@ -165,7 +165,7 @@ class Attributes
             }
             $this->attributes = array_merge($sorted, $this->attributes);
         }
-        
+
         return $this;
     }
 }

@@ -39,7 +39,7 @@ class Html
      */
     public static function __callStatic($name, $arguments): string
     {
-        return static::make($name, ...$arguments);
+        return (new static)->make($name, ...$arguments);
     }
 
     /**
@@ -47,7 +47,7 @@ class Html
      *
      * @throws HtmlException
      */
-    public static function make($name, ...$args): string
+    private function make($name, ...$args): string
     {
         $className = 'PTAdmin\\Html\\Components\\'.ucfirst($name);
         try {
