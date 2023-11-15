@@ -111,10 +111,10 @@ class BaseHtml
     protected function tag($name, string $content = '', array $options = []): string
     {
         $closeTag = '';
-        !isset(static::$voidElements[strtolower($name)]) && $closeTag = '/';
-        $html = "<{$name} ".Attributes::render($options)." {$closeTag}>";
+        in_array($name, self::$voidElements) && $closeTag = '/';
+        $html = "<{$name} ".Attributes::render($options)."{$closeTag}>";
 
-        return '' === $closeTag ? $html.$content : "{$html} {$content}</{$name}>";
+        return '' !== $closeTag ? $html.$content : "{$html} {$content}</{$name}>";
     }
 
 }
